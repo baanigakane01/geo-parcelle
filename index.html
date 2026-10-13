@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoParcelle - BAANI GA KANE (Niamey & Dosso)</title>
+  <meta name="description" content="Société des Études Topographiques BAANI GA KANE : Gestion foncière et parcelles à Niamey et Dosso.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="stylesheet" href="style.css">
+  <!-- Supabase JS Client & jsPDF pour reçus officiels -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">📍</div>
+        <div>
+          <h1>BAANI GA KANE</h1>
+          <p>Société des Études Topographiques • BP 13907 Niamey – Niger</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <div class="role-selector">
+          <label for="roleSelect">Rôle :</label>
+          <select id="roleSelect">
+            <option value="owner">owner (Propriétaire)</option>
+            <option value="assistant">assistant (Saisie / Caisse)</option>
+            <option value="super_user">super_user (Admin)</option>
+            <option value="public">Visiteur Public</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="dashboard">Tableau de Bord</button>
+      <button class="nav-tab" data-tab="showcase">Vitrine & Plan</button>
+      <button class="nav-tab" data-tab="parcels">Parcelles (Niamey & Dosso)</button>
+      <button class="nav-tab" data-tab="clients">Clients</button>
+      <button class="nav-tab" data-tab="sales">Ventes & Soldes</button>
+      <button class="nav-tab" data-tab="payments">Paiements & Reçus</button>
+      <button class="nav-tab" data-tab="audit">Journal d'Audit</button>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section id="tab-dashboard" class="tab-pane active">
+      <div class="hero-banner">
+        <h2>Tableau de Bord Consolidé</h2>
+        <p>Encaissements certifiés (Règle 7), occupation cadastrale et progression des ventes.</p>
+      </div>
+      <div class="kpi-grid" id="kpiGrid"></div>
+    </section>
+
+    <section id="tab-showcase" class="tab-pane">
+      <div class="hero-banner">
+        <span class="badge badge-emerald">Société des Études Topographiques</span>
+        <h2>BAANI GA KANE - Niamey &amp; Dosso</h2>
+        <p>Topographie • Aménagement urbain • Vente de parcelles • Hydraulique</p>
+      </div>
+      <div id="parcelsGrid" class="parcels-grid"></div>
+    </section>
+
+    <section id="tab-parcels" class="tab-pane">
+      <div class="view-header">
+        <h2>Registre des Parcelles</h2>
+        <button id="btnNewParcel" class="btn btn-emerald">Nouvelle Parcelle</button>
+      </div>
+      <div class="table-card">
+        <table id="parcelsTable">
+          <thead>
+            <tr>
+              <th>Réf. Cadastrale</th>
+              <th>Ville / Commune</th>
+              <th>Ilot / Lot</th>
+              <th>Superficie</th>
+              <th>Prix</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-clients" class="tab-pane">
+      <div class="view-header">
+        <h2>Répertoire des Clients</h2>
+      </div>
+      <div class="table-card">
+        <table id="clientsTable">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Nom / Raison Sociale</th>
+              <th>CIN / RCCM</th>
+              <th>Téléphone</th>
+              <th>Adresse</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-sales" class="tab-pane">
+      <div class="view-header">
+        <h2>Dossiers de Vente</h2>
+      </div>
+      <div id="salesList" class="sales-grid"></div>
+    </section>
+
+    <section id="tab-payments" class="tab-pane">
+      <div class="view-header">
+        <h2>Caisse & Cycle de Paiement (Cycle 6)</h2>
+      </div>
+      <div class="table-card">
+        <table id="paymentsTable">
+          <thead>
+            <tr>
+              <th>N° Reçu</th>
+              <th>Vente N°</th>
+              <th>Acquéreur</th>
+              <th>Montant</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-audit" class="tab-pane">
+      <div class="view-header">
+        <h2>Journal d'Audit Immuable</h2>
+      </div>
+      <div class="table-card">
+        <table id="auditTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Table</th>
+              <th>Action</th>
+              <th>Auteur</th>
+              <th>Rôle</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+  </html>
